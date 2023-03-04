@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNF.API", "CNF.API\CNF.API.csproj", "{BC6388A5-0D21-43A3-B26D-ADD1A95889E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNF.Common", "CNF.Common\CNF.Common.csproj", "{5300573D-24CC-4717-935B-A875CADFD581}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC6388A5-0D21-43A3-B26D-ADD1A95889E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC6388A5-0D21-43A3-B26D-ADD1A95889E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC6388A5-0D21-43A3-B26D-ADD1A95889E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC6388A5-0D21-43A3-B26D-ADD1A95889E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5300573D-24CC-4717-935B-A875CADFD581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5300573D-24CC-4717-935B-A875CADFD581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5300573D-24CC-4717-935B-A875CADFD581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5300573D-24CC-4717-935B-A875CADFD581}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
