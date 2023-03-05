@@ -16,6 +16,8 @@
 
     <ItemGroup>
       <ProjectReference Include="..\CNF.Common\CNF.Common.csproj" />
+      <ProjectReference Include="..\CNF.Domain\CNF.Domain.csproj" />
+      <ProjectReference Include="..\CNF.Infrastructure\CNF.Infrastructure.csproj" />
       <ProjectReference Include="..\CNF.Repository\CNF.Repository.csproj" />
     </ItemGroup>
 

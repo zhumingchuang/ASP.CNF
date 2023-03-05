@@ -2,6 +2,9 @@
 
 namespace CNF.Domain.Entity.Core;
 
+/// <summary>
+/// 租户
+/// </summary>
 public class BaseEntity : IEntity, IHasModifyTime, IHasCreateTime, IHasDeleteTime, ISoftDelete
 {
     [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
