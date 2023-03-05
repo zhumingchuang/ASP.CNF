@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNF.API", "CNF.API\CNF.API.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNF.Common", "CNF.Common\CNF.Common.csproj", "{5300573D-24CC-4717-935B-A875CADFD581}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNF.Repository", "CNF.Repository\CNF.Repository.csproj", "{34301A07-5576-4A65-85E7-38599B5307AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNF.Hosting", "CNF.Hosting\CNF.Hosting.csproj", "{2953B8EC-B436-482E-8062-68F292B7D236}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{5300573D-24CC-4717-935B-A875CADFD581}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5300573D-24CC-4717-935B-A875CADFD581}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5300573D-24CC-4717-935B-A875CADFD581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34301A07-5576-4A65-85E7-38599B5307AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34301A07-5576-4A65-85E7-38599B5307AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34301A07-5576-4A65-85E7-38599B5307AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34301A07-5576-4A65-85E7-38599B5307AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2953B8EC-B436-482E-8062-68F292B7D236}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2953B8EC-B436-482E-8062-68F292B7D236}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2953B8EC-B436-482E-8062-68F292B7D236}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2953B8EC-B436-482E-8062-68F292B7D236}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

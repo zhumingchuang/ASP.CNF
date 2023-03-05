@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
+﻿namespace CNF.Common.Helper;
 
-namespace CNF.Common.Helper;
-
-public class CustomHttpContext
+public static class CustomHttpContext
 {
     public static IServiceProvider ServiceProvider;
 
