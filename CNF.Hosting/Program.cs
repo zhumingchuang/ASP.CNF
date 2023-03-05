@@ -1,11 +1,28 @@
+using CNF.API;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddHttpContextAccessor ();
+builder.Services.AddSignalR();
+
+//api设置
+builder.Services.ApiSetup(builder.Configuration);
+
+//路由配置
+builder.Services.AddRouting(options => {
+    options.LowercaseUrls = true;
+    options.AppendTrailingSlash = true;
+    options.LowercaseQueryStrings = true;
+});
+
+//跨域配置
+builder.Services.AddCors(options => {
+    options.AddDefaultPolicy(p => p.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
 
 var app = builder.Build();
 
