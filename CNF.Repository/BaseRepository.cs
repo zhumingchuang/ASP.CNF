@@ -5,6 +5,9 @@ using SqlSugar;
 
 namespace CNF.Repository;
 
+/// <summary>
+/// 数据库操作基类
+/// </summary>
 public class BaseRepository<T> : IBaseRepository<T> where T : class, new()
 {
     private readonly ISqlSugarClient _db;

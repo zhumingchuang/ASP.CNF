@@ -2,6 +2,10 @@
 
 namespace CNF.Repository.Interface;
 
+/// <summary>
+/// 数据库操作接口
+/// </summary>
+/// <typeparam name="T"></typeparam>
 public interface IBaseRepository<T> where T : class
 {
     #region 同步
