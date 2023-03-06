@@ -9,7 +9,7 @@ namespace CNF.API.Jwt.Extension;
 public static partial class AuthorizationExtension
 {
     private static JwtSetting? _jwtSetting;
-    
+
     public static void AddAuthorizationSetup(this IServiceCollection services, IConfiguration configuration)
     {
         //读取配置文件       
@@ -17,6 +17,16 @@ public static partial class AuthorizationExtension
         if (_jwtSetting == null)
         {
             throw new ArgumentNullException(nameof(JwtSetting));
+        }
+
+        var jwtEnable = configuration["JwtConfig:IsEnable"];
+        if (jwtEnable != null)
+        {
+            var boolean = Convert.ToBoolean(jwtEnable);
+            if (!boolean)
+            {
+                return;
+            }
         }
         
         // 令牌验证参数

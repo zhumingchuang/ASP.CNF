@@ -21,16 +21,8 @@ public static class ServiceCollectionExtensions
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
         //jwt
-        var jwtEnable = configuration["JwtConfig:IsEnable"];
-        if (jwtEnable != null)
-        {
-            var boolean = Convert.ToBoolean(jwtEnable);
-            if (boolean)
-            {
-                services.AddAuthorizationSetup(configuration);
-            }
-        }
-        
+        services.AddAuthorizationSetup(configuration);
+
         CustomHttpContext.ServiceProvider = services.BuildServiceProvider();
         
         services.AddDistributedMemoryCache();
