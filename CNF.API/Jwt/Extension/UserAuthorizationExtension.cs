@@ -1,35 +1,49 @@
-﻿using System.Security.Claims;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using CNF.API.Controllers.Core;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CNF.API.Jwt.Extension;
 
 /// <summary>
 /// 用户权限扩展
 /// </summary>
-public static class UserAuthorizationExtension
+public static partial class AuthorizationExtension
 {
+    private static Delegate? _addClaimFunc;
 
-    private static Func<IUser,List<Claim>> _func;
-    private static IServiceCollection _service;
-    public static void AddClaim<TUser>(this IServiceCollection service, Func<IUser,List<Claim>> func) where TUser : IUser
+    public static void AddClaim<TUser>(this IServiceCollection service, Func<TUser, List<Claim>> addClaimFunc)
+        where TUser : IUser
     {
-        _func = func;
+        _addClaimFunc = addClaimFunc;
     }
 
-    public static void GetClaim<TUser>(this IUser user) where TUser : IUser
+    public static List<Claim>? GetClaim<TUser>(this TUser user) where TUser : IUser
     {
-        _func.Invoke(user);
-        
-        _service.AddClaim<User>((useraa) =>
-        {
-            // ((User)useraa)
-            return new List<Claim>();
-        });
-
+        return ((Func<TUser, List<Claim>>)_addClaimFunc!)?.Invoke((TUser)user);
     }
-}
 
-public class User : IUser
-{
-    public string asasdasd;
+    public static string GetJwtToken<TUser>(this TUser user) where TUser : IUser
+    {
+        var claim= GetClaim(user);
+        if (claim == null) throw new Exception();
+        var token = BuildJwtToken(claim);
+        return token;
+    }
+
+    public static string BuildJwtToken(IEnumerable<Claim> claims)
+    {
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting!.SecurityKey));
+        var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var jwtToken = new JwtSecurityToken(
+            issuer: _jwtSetting.Issuer,
+            audience: _jwtSetting.Audience,
+            claims: claims,
+            notBefore: DateTime.Now,
+            expires: DateTime.Now.AddMinutes(1),
+            signingCredentials: signingCredentials
+        );
+        return new JwtSecurityTokenHandler().WriteToken(jwtToken);
+    }
 }

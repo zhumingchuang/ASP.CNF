@@ -6,30 +6,30 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace CNF.API.Jwt.Extension;
 
-public static class AuthorizationExtension
+public static partial class AuthorizationExtension
 {
+    private static JwtSetting? _jwtSetting;
+    
     public static void AddAuthorizationSetup(this IServiceCollection services, IConfiguration configuration)
     {
         //读取配置文件       
-        var jwtSetting = configuration.GetSection("JwtSetting").Get<JwtSetting>();
-        if (jwtSetting == null)
+        _jwtSetting = configuration.GetSection("JwtSetting").Get<JwtSetting>();
+        if (_jwtSetting == null)
         {
             throw new ArgumentNullException(nameof(JwtSetting));
         }
         
-        services.AddSingleton<JwtSetting>(jwtSetting);
-
         // 令牌验证参数
         var tokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSetting.SecurityKey)),
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSetting.SecurityKey)),
             ValidateIssuer = true,
-            ValidIssuer = jwtSetting.Issuer, //发行人
+            ValidIssuer = _jwtSetting.Issuer, //发行人
             ValidateAudience = true,
-            ValidAudience = jwtSetting.Audience, //订阅人
+            ValidAudience = _jwtSetting.Audience, //订阅人
             ValidateLifetime = true,
-            ClockSkew = TimeSpan.FromSeconds(jwtSetting.ExpireSeconds), //ClockSkew默认值为20s，它是一个缓冲期
+            ClockSkew = TimeSpan.FromSeconds(_jwtSetting.ExpireSeconds), //ClockSkew默认值为20s，它是一个缓冲期
             RequireExpirationTime = true,
         };
 
@@ -56,12 +56,12 @@ public static class AuthorizationExtension
                         var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                         var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(token);
 
-                        if (jwtToken.Issuer != jwtSetting.Issuer)
+                        if (jwtToken.Issuer != _jwtSetting.Issuer)
                         {
                             context.Response.Headers.Add("Token-Error-Iss", "issuer is wrong!");
                         }
 
-                        if (jwtToken.Audiences.FirstOrDefault() != jwtSetting.Audience)
+                        if (jwtToken.Audiences.FirstOrDefault() != _jwtSetting.Audience)
                         {
                             context.Response.Headers.Add("Token-Error-Aud", "Audience is wrong!");
                         }
