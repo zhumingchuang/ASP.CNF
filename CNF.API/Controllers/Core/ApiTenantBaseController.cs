@@ -1,9 +1,16 @@
 ﻿// using AutoMapper;
 // using CNF.Common;
+// using CNF.Common.Helper;
 // using CNF.Domain.Entity.Core;
+// using CNF.Domain.Repository;
+// using CNF.Domain.ValueObjects.Enums;
 // using CNF.Infrastructure.Attributes;
+// using CNF.Repository;
 // using CNF.Repository.Interface;
+// using Magicodes.ExporterAndImporter.Core;
+// using Magicodes.ExporterAndImporter.Excel;
 // using Microsoft.AspNetCore.Mvc;
+// using SqlSugar;
 //
 // namespace CNF.API.Controllers;
 //
@@ -18,12 +25,11 @@
 // /// <typeparam name="TUpdateInput"></typeparam>
 // [ApiController]
 // [MultiTenant]
-// public class
-//     ApiTenantBaseController<TEntity, TDetailQuery, TDeleteInput, TListQuery, TCreateInput,
+// public class ApiTenantBaseController<TEntity, TDetailQuery, TDeleteInput, TListQuery, TCreateInput,
 //         TUpdateInput> : ControllerBase
 //     where TEntity : BaseTenantEntity, new()
 //     where TDetailQuery : DetailTenantQuery
-//     where TDeleteInput : DeletesTenantInput
+//     where TDeleteInput : IDeletesTenantInput
 //     where TListQuery : ListTenantQuery
 //     where TCreateInput : class
 //     where TUpdateInput : IEntity

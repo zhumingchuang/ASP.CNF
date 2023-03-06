@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CNF.Domain.Repository;
 using CNF.Repository.Interface;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -13,11 +14,12 @@ public class UserControllerBase<TUser> : ApiControllerBase, IUser
     private readonly IBaseRepository<TUser> _userRepository;
     private readonly IMapper _mapper;
     private readonly IDistributedCache _cacheHelper;
-
-    public UserControllerBase(IBaseRepository<TUser> userRepository, IMapper mapper, IDistributedCache cacheHelper)
+    private readonly IRecycleRepository _recycleRepository;
+        public UserControllerBase(IBaseRepository<TUser> userRepository, IMapper mapper, IDistributedCache cacheHelper, IRecycleRepository recycleRepository)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _cacheHelper = cacheHelper;
+        _recycleRepository = recycleRepository;
     }
 }

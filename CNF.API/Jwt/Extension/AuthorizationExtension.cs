@@ -10,14 +10,14 @@ public static class AuthorizationExtension
 {
     public static void AddAuthorizationSetup(this IServiceCollection services, IConfiguration configuration)
     {
-        if (services == null) throw new ArgumentNullException(nameof(services));
-
         //读取配置文件       
         var jwtSetting = configuration.GetSection("JwtSetting").Get<JwtSetting>();
         if (jwtSetting == null)
         {
             throw new ArgumentNullException(nameof(JwtSetting));
         }
+        
+        services.AddSingleton<JwtSetting>(jwtSetting);
 
         // 令牌验证参数
         var tokenValidationParameters = new TokenValidationParameters
@@ -33,7 +33,6 @@ public static class AuthorizationExtension
             RequireExpirationTime = true,
         };
 
-        //2.1【认证】、core自带官方JWT认证
         // 开启Bearer认证
         services.AddAuthentication(o =>
             {
