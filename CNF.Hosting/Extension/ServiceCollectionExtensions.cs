@@ -4,7 +4,7 @@ using CNF.Repository;
 using CNF.Repository.Interface;
 using SqlSugar;
 
-namespace CNF.Hosting;
+namespace CNF.Hosting.Extension;
 
 public static class ServiceCollectionExtensions
 {

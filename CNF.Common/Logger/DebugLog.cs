@@ -11,12 +11,25 @@ public class DebugLog
     {
         _logger = logger;
     }
+    
+    public DebugLog(string name = "database") : this(LogManager.GetLogger(name))
+    {
+
+    }
 
     public static DebugLog Default { get; private set; }
 
     static DebugLog()
     {
         Default = new DebugLog(LogManager.GetCurrentClassLogger());
+    }
+
+    public void Log(string msg,NLog.LogLevel logLevel)
+    {
+        LogEventInfo lei = new LogEventInfo();
+        lei.Level = logLevel;
+        lei.Message = msg;
+        _logger.Log(lei);
     }
 
     public void HttpLog(string userName, string Logger, string msg, NLog.LogLevel logLevel, Exception exception = null)

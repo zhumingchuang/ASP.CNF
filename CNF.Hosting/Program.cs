@@ -1,6 +1,9 @@
-using CNF.API;
 using CNF.Common.Extension;
-using CNF.Hosting;
+using CNF.Common.Logger;
+using CNF.Hosting.Extension;
+using NLog.Extensions.Logging;
+using NLog.Web;
+using LogLevel = NLog.LogLevel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,8 +14,8 @@ builder.Services.AddHttpContextAccessor ();
 builder.Services.AddSignalR();
 
 //日志
-builder.Services.AddLoggerSetup();
-
+builder.Services.AddLoggerSetup(builder.Configuration);
+builder.Logging.AddNLogWeb();
 //api设置
 builder.Services.ApiSetup(builder.Configuration);
 
@@ -40,6 +43,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
+    Console.WriteLine("等待eqweqwe");
+    await Task.Delay(2000);
+
+    Console.WriteLine("等待");
+    new DebugLog().Log("测试一下日志消息123123",LogLevel.Trace);
 }
 
 app.UseHttpsRedirection();
