@@ -1,4 +1,4 @@
-﻿namespace CNF.Common.Helper;
+﻿namespace CNF.Common.Core;
 
 public static class CustomHttpContext
 {

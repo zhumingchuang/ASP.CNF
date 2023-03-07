@@ -3,7 +3,7 @@ using System.Text;
 using System.Net.NetworkInformation;
 using Newtonsoft.Json;
 
-namespace CNF.Common.Helper;
+namespace CNF.Common.Core;
 
 public class IpParseHelper
 {

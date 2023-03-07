@@ -2,7 +2,7 @@
 using System.Text;
 using XC.RSAUtil;
 
-namespace CNF.Common.Helper;
+namespace CNF.Common.Core;
 
 public class RSACrypt
 {

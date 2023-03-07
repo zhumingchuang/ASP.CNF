@@ -1,7 +1,7 @@
 ﻿using MimeKit;
 using MailKit.Net.Smtp;
 
-namespace CNF.Common.Helper;
+namespace CNF.Common.Core;
 
 public class EmailHelper
 {

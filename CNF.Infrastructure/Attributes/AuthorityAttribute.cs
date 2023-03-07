@@ -1,5 +1,5 @@
 ﻿using CNF.Common;
-using CNF.Common.Helper;
+using CNF.Common.Core;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

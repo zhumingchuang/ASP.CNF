@@ -1,7 +1,7 @@
 ﻿using Magicodes.ExporterAndImporter.Core;
 using Magicodes.ExporterAndImporter.Excel;
 
-namespace CNF.Common.Helper;
+namespace CNF.Common.Core;
 
 public class NPOIHelper
 {

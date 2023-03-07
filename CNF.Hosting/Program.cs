@@ -1,15 +1,24 @@
 using CNF.API;
+using CNF.Common.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 builder.Services.AddHttpContextAccessor ();
 builder.Services.AddSignalR();
 
+//NLog.LogManager.LoadConfiguration("databaseLog.config").GetCurrentClassLogger();
+
+//日志
+// builder.Logging.AddNLog();
+
 //api设置
 builder.Services.ApiSetup(builder.Configuration);
+
+//api文档
+builder.Services.AddSwaggerSetup();
 
 //路由配置
 builder.Services.AddRouting(options => {
@@ -31,6 +40,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();

@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace CNF.Common.Helper;
+namespace CNF.Common.Core;
 
 public class WebHelper
 {

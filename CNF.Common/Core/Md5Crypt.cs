@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace CNF.Common.Helper;
+namespace CNF.Common.Core;
 
 public class Md5Crypt
 {

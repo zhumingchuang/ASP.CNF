@@ -1,5 +1,5 @@
 ﻿using CNF.API.Jwt.Extension;
-using CNF.Common.Helper;
+using CNF.Common.Core;
 using CNF.Repository;
 using CNF.Repository.Interface;
 using SqlSugar;

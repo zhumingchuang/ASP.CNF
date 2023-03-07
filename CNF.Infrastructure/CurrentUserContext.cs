@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Distributed;
 using CNF.Caches;
-using CNF.Common.Helper;
+using CNF.Common.Core;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
