@@ -1,5 +1,6 @@
 using CNF.API;
 using CNF.Common.Extension;
+using CNF.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,10 +10,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpContextAccessor ();
 builder.Services.AddSignalR();
 
-//NLog.LogManager.LoadConfiguration("databaseLog.config").GetCurrentClassLogger();
-
 //日志
-// builder.Logging.AddNLog();
+builder.Services.AddLoggerSetup();
 
 //api设置
 builder.Services.ApiSetup(builder.Configuration);
