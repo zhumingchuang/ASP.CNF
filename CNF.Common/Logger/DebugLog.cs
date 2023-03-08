@@ -23,22 +23,14 @@ public class DebugLog
     {
         Default = new DebugLog(LogManager.GetCurrentClassLogger());
     }
-
-    public void Log(string msg,NLog.LogLevel logLevel)
-    {
-        LogEventInfo lei = new LogEventInfo();
-        lei.Level = logLevel;
-        lei.Message = msg;
-        _logger.Log(lei);
-    }
-
+    
     public void HttpLog(string userName, string Logger, string msg, NLog.LogLevel logLevel, Exception exception = null)
     {
-        try
-        {
-            var accessor = new HttpContextAccessor();
-            string ip = accessor.HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
-                        accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+        // try
+        // {
+            // var accessor = new HttpContextAccessor();
+            // string ip = accessor.HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
+            //             accessor.HttpContext.Connection.RemoteIpAddress.ToString();
             LogEventInfo lei = new LogEventInfo();
             lei.Properties["UserName"] = userName;
             lei.Properties["Logger"] = Logger;
@@ -46,12 +38,12 @@ public class DebugLog
             lei.Message = msg;
             lei.Exception = exception;
             //TODO
-            lei.Properties["Address"] = IpParseHelper.GetAddressByIP(ip);
+            // lei.Properties["Address"] = IpParseHelper.GetAddressByIP(ip);
             _logger.Log(lei);
-        }
-        catch
-        {
-            // ignored
-        }
+        //}
+        // catch
+        // {
+        //     // ignored
+        // }
     }
 }
