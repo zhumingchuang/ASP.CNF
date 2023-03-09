@@ -15,4 +15,9 @@
       <ProjectReference Include="..\CNF.Domain\CNF.Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Common" />
+      <Folder Include="Interface" />
+    </ItemGroup>
+
 </Project>

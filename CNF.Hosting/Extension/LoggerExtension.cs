@@ -1,8 +1,4 @@
-﻿using CNF.Common.Logger;
-using Magicodes.ExporterAndImporter.Core.Extension;
-using Microsoft.AspNetCore.HttpLogging;
-using Microsoft.Net.Http.Headers;
-using LogLevel = NLog.LogLevel;
+﻿using NLog.Web;
 
 namespace CNF.Hosting.Extension;
 
@@ -12,7 +8,8 @@ public static class LoggerExtension
     {
         NLog.LogManager.LoadConfiguration("nlog.config").GetCurrentClassLogger();
         NLog.LogManager.Configuration.Variables["connectionString"] = webApplicationBuilder.Configuration["ConnectionStrings:MySql"];
-        //new DebugLog().HttpLog("123", "123333", "消息", LogLevel.Error);
+        webApplicationBuilder.Logging.AddNLogWeb();
+
 
         // webApplicationBuilder.Services.AddHttpLogging(logging =>
         // {
