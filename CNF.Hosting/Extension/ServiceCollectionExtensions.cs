@@ -23,7 +23,7 @@ public static class ServiceCollectionExtensions
         //jwt
         services.AddAuthorizationSetup(configuration);
 
-        CustomHttpContext.ServiceProvider = services.BuildServiceProvider();
+        CurrentHttpContextAccessor.ServiceProvider = services.BuildServiceProvider();
         
         services.AddDistributedMemoryCache();
     }

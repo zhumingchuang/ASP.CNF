@@ -3,7 +3,7 @@
 namespace CNF.Domain.Entity;
 
 /// <summary>
-/// 用户信息
+/// 用户信息表
 /// </summary>
 [SugarTable("CNF_UserInfo")]
 public class UserInfo

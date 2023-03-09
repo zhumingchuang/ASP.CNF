@@ -9,6 +9,7 @@ using CNF.Repository.Interface;
 using Microsoft.AspNetCore.Mvc;
 using CNF.Domain.Data.Input.Sys;
 using CNF.Domain.Data.Output.Sys;
+using CNF.Infrastructure;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Distributed;
 
@@ -22,13 +23,15 @@ public class UserController : ApiControllerBase
     private readonly IMapper _mapper;
     private readonly IDistributedCache _cacheHelper;
     private readonly IBaseRepository<User> _userRepository;
+    private readonly ICurrentUserContext _currentUserContext;
 
 
-    public UserController(IBaseRepository<User> userRepository, IMapper mapper, IDistributedCache cacheHelper)
+    public UserController(IBaseRepository<User> userRepository, ICurrentUserContext currentUserContext,IMapper mapper, IDistributedCache cacheHelper)
     {
-        _userRepository = userRepository;
         _mapper = mapper;
         _cacheHelper = cacheHelper;
+        _userRepository = userRepository;
+        _currentUserContext = currentUserContext;
     }
 
     /// <summary>
@@ -67,7 +70,7 @@ public class UserController : ApiControllerBase
         loginInput.Password = Md5Crypt.Encrypt(loginInput.Password);
 
         var identityType = IdentityTypeHelp.GetIdentityType(loginInput.UserName);
-        Domain.Entity.User loginModel;
+        User loginModel;
         if (identityType == EIdentityType.Phone)
         {
             //手机登录
@@ -94,10 +97,11 @@ public class UserController : ApiControllerBase
         {
             if (loginModel.IsDeleted)
             {
-                return new ApiResult<LoginOutput>($"该用户【{loginInput.UserName}】已经登录，此时强行登录，其他地方会被挤下线！", ConstStatusCode.Success);
+                return new ApiResult<LoginOutput>($"该用户【{loginInput.UserName}】已经登录，此时强行登录，其他地方会被挤下线！",
+                    ConstStatusCode.Success);
             }
         }
-        
+
         loginModel.ModifyLoginInfo();
         await _userRepository.UpdateAsync(loginModel);
         var result = _mapper.Map<LoginOutput>(loginModel);
@@ -105,18 +109,25 @@ public class UserController : ApiControllerBase
     }
 
     /// <summary>
+    /// 用户注册
+    /// </summary>
+    public void AddUser()
+    {
+    }
+
+    /// <summary>
     /// 修改密码
     /// </summary>
-    public async void ModfiyPwd()
+    public async void ModfiyPwd([FromBody] ModifyPwdInput input)
     {
-        
+        input.ModifyPassword(_currentUserContext.Id);
+        var model = await _userRepository.GetModelAsync(d => d.Id == input.Id && d.IsDeleted == false);
     }
-    
+
     /// <summary>
     /// 软删除
     /// </summary>
     public async void SoftDelete()
     {
-
     }
 }

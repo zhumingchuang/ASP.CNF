@@ -34,7 +34,7 @@ public static class UserExtension
     /// </summary>
     public static void ModifyIpAddress(this User user)
     {
-        user.Ip = CustomHttpContext.Current.Request.Headers["X-Forwarded-For"].FirstOrDefault() ?? CustomHttpContext.Current.Connection.RemoteIpAddress.ToString();
+        user.Ip = CurrentHttpContextAccessor.Current.Request.Headers["X-Forwarded-For"].FirstOrDefault() ?? CurrentHttpContextAccessor.Current.Connection.RemoteIpAddress.ToString();
         user.Address = IpParseHelper.GetAddressByIP(user.Ip);
     }
     

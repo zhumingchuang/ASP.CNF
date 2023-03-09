@@ -1,6 +1,6 @@
 ﻿namespace CNF.Common.Core;
 
-public static class CustomHttpContext
+public static class CurrentHttpContextAccessor
 {
     public static IServiceProvider ServiceProvider;
 

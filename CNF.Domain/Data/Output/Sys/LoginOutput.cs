@@ -5,5 +5,12 @@
 /// </summary>
 public class LoginOutput
 {
-    
+    /// <summary>
+    /// 用户名
+    /// </summary>
+    public string UserName { get; set; }
+    /// <summary>
+    /// Token
+    /// </summary>
+    public string Token { get; set; }
 }

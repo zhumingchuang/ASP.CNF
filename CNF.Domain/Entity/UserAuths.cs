@@ -3,7 +3,7 @@
 namespace CNF.Domain.Entity;
 
 /// <summary>
-/// 用户身份验证
+/// 身份验证表
 /// </summary>
 [SugarTable("CNF_UserAuths")]
 public class UserAuths
