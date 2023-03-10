@@ -13,6 +13,11 @@ namespace CNF.Infrastructure;
 public interface ICurrentUserContext
 {
     /// <summary>
+    /// 用户id
+    /// </summary>
+    int Id { get; }
+
+    /// <summary>
     /// 多租户Id
     /// </summary>
     int TenantId { get; }
@@ -23,16 +28,18 @@ public interface ICurrentUserContext
     string Name { get; }
 
     /// <summary>
-    /// 用户id
-    /// </summary>
-    int Id { get; }
-
-    /// <summary>
     /// 用户手机号
     /// </summary>
     string Mobile { get; }
-
+    
+    /// <summary>
+    /// 是否登录
+    /// </summary>
+    /// <returns></returns>
     bool IsAuthenticated();
+    
+    
+    
     IEnumerable<Claim> GetClaimsIdentity();
     List<string> GetClaimValueByType(string claimType);
 

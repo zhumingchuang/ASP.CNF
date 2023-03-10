@@ -26,7 +26,8 @@ public class UserController : ApiControllerBase
     private readonly ICurrentUserContext _currentUserContext;
 
 
-    public UserController(IBaseRepository<User> userRepository, ICurrentUserContext currentUserContext,IMapper mapper, IDistributedCache cacheHelper)
+    public UserController(IBaseRepository<User> userRepository, ICurrentUserContext currentUserContext, IMapper mapper,
+        IDistributedCache cacheHelper)
     {
         _mapper = mapper;
         _cacheHelper = cacheHelper;
@@ -111,17 +112,34 @@ public class UserController : ApiControllerBase
     /// <summary>
     /// 用户注册
     /// </summary>
-    public void AddUser()
+    public async Task<ApiResult> AddUser([FromBody] UserRegisterInput input)
     {
+        var model = await _userRepository.GetModelAsync(d => !d.IsDeleted && d.UserName.Equals(input.UserName));
+        if (model != null && model.Id > 0)
+        {
+            return new ApiResult($"已经存在[{input.UserName}]该用户名了");
+        }
+        var userModel = _mapper.Map<User>(input);
+        userModel.CreateUser();
+        var i = await _userRepository.AddAsync(userModel);
+        return i > 0 ? new ApiResult(i) : new ApiResult("用户添加失败！");
     }
 
     /// <summary>
     /// 修改密码
     /// </summary>
-    public async void ModfiyPwd([FromBody] ModifyPwdInput input)
+    public async Task<ApiResult> ModfiyPwd([FromBody] ModifyPwdInput input)
     {
         input.ModifyPassword(_currentUserContext.Id);
         var model = await _userRepository.GetModelAsync(d => d.Id == input.Id && d.IsDeleted == false);
+        if (model?.Id < 0)
+        {
+            throw new ArgumentException("用户信息为空");
+        }
+
+        model.IsEquaPassword(input.OldPassword, input.ConfirmPassword);
+        var i = await _userRepository.UpdateAsync(model);
+        return i > 0 ? new ApiResult(i) : new ApiResult("用户密码修改失败！");
     }
 
     /// <summary>

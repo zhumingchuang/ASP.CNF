@@ -1,10 +1,13 @@
 ﻿namespace CNF.Common.Core;
 
-public static class CurrentHttpContextAccessor
+/// <summary>
+/// 服务单例
+/// </summary>
+public static class SingletonServiceProvider
 {
     public static IServiceProvider ServiceProvider;
 
-    public static HttpContext Current
+    public static HttpContext? HttpContextAccessor
     {
         get
         {
