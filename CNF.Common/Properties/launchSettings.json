@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "CNF.Common": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50172;http://localhost:50174"
+    }
+  }
+}
