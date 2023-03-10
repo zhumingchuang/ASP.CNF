@@ -1,10 +1,11 @@
 ﻿using CNF.API.Jwt.Extension;
 using CNF.Common.Core;
+using CNF.Infrastructure;
 using CNF.Repository;
 using CNF.Repository.Interface;
 using SqlSugar;
 
-namespace CNF.Hosting.Extension;
+namespace CNF.API.Extension;
 
 public static class ServiceCollectionExtensions
 {
@@ -22,6 +23,8 @@ public static class ServiceCollectionExtensions
 
         //jwt
         services.AddAuthorizationSetup(configuration);
+        
+        services.AddScoped<ICurrentUserContext, CurrentUserContext>();
 
         SingletonServiceProvider.ServiceProvider = services.BuildServiceProvider();
         

@@ -95,7 +95,7 @@ public class CurrentUserContext : ICurrentUserContext
             }
         }
 
-        return "";
+        return "测试一下";
     }
 
     public string Mobile => GetClaimValueByType("mobile").FirstOrDefault()?.ToString();

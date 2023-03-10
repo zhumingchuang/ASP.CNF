@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Extension" />
+      <Folder Include="Areas\Sys\Controllers" />
+      <Folder Include="Areas\Sys\Views" />
+      <Folder Include="wwwroot\lib\font-awesome-6.3.0" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using CNF.Domain.ValueObjects;
 using CNF.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using CNF.MVC.Models;
@@ -18,15 +19,32 @@ public class HomeController : Controller
         _currentUserContext = currentUserContext;
     }
 
+    [Route("/")]
     public async Task<IActionResult> Index()
     {
         if (_currentUserContext.IsAuthenticated())
         {
+            Console.WriteLine("asdasd");
             // await _menuRepository.GetCurrentAuthMenus(_currentUserContext.Id);
         }
-
-        return View();
+        var value = await SysSetting.ReadAsync();
+        return View(value);
     }
+    
+    // public async Task<IActionResult> Report()
+    // {
+    //     var articleCount = await _db.Queryable<Article>().Where(d => !d.IsDeleted).CountAsync();
+    //     var columnCount = await _db.Queryable<Column>().Where(d => !d.IsDeleted).CountAsync();
+    //     var goodsCount = await _db.Queryable<Goods>().Where(d => !d.IsDeleted).CountAsync();
+    //     var categoryCount = await _db.Queryable<Category>().Where(d => !d.IsDeleted).CountAsync();
+    //     var orderCount = await _db.Queryable<Order>().Where(d => !d.IsDeleted).CountAsync();
+    //     ViewBag.articleCount = articleCount;
+    //     ViewBag.columnCount = columnCount;
+    //     ViewBag.goodsCount = goodsCount;
+    //     ViewBag.categoryCount = categoryCount;
+    //     ViewBag.orderCount = orderCount;
+    //     return View();
+    // }
 
     public IActionResult Privacy()
     {

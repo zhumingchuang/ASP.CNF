@@ -1,5 +1,5 @@
+using CNF.API.Extension;
 using CNF.Common.Extension;
-using CNF.Hosting.Extension;
 
 var builder = WebApplication.CreateBuilder(args);
 

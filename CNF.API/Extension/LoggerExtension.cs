@@ -1,6 +1,6 @@
 ﻿using NLog.Web;
 
-namespace CNF.Hosting.Extension;
+namespace CNF.API.Extension;
 
 public static class LoggerExtension
 {
