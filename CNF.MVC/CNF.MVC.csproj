@@ -7,11 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Areas\Sys\Controllers" />
-      <Folder Include="Areas\Sys\Views" />
-    </ItemGroup>
-
-    <ItemGroup>
       <ProjectReference Include="..\CNF.API\CNF.API.csproj" />
     </ItemGroup>
 
@@ -53,6 +48,10 @@
       <_ContentIncludedByDefault Remove="wwwroot\lib\font-awesome-4.7.0\scss\_screen-reader.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\font-awesome-4.7.0\scss\_stacked.scss" />
       <_ContentIncludedByDefault Remove="wwwroot\lib\font-awesome-4.7.0\scss\_variables.scss" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\lib\microsoft\signalr" />
     </ItemGroup>
 
 </Project>

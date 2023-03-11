@@ -3,14 +3,19 @@
 public class SysCacheKey
 {
     /// <summary>
+    /// 登录加密Key
+    /// </summary>
+    public const string LoginRsaCrypt = "loginRSACrypt";
+    
+    /// <summary>
+    /// MVC登录加密Key
+    /// </summary>
+    public const string EncryLoginKey = "encryLoginKey";
+    
+    /// <summary>
     /// 
     /// </summary>
     public const string CurrentTenant = "currentTenant";
-
-    /// <summary>
-    /// 用户登录非对称加密
-    /// </summary>
-    public const string LoginRsaCrypt = "loginRSACrypt";
 
     /// <summary>
     /// 当前用户拥有的所有权限去做校验
@@ -21,12 +26,7 @@ public class SysCacheKey
     /// 左侧树形菜单 key=$“MenuTrees:{userId}”
     /// </summary>
     public const string MenuTrees = "MenuTrees";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public const string EncryLoginKey = "encryLoginKey";
-
+    
     /// <summary>
     /// 
     /// </summary>

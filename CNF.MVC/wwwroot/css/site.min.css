@@ -1,0 +1,15 @@
+
+.panel-body{padding-top:15px;padding-right:450px;position:relative}
+.panel-addpic{position:absolute;right:0;top:0;width:350px}
+.panel-addpic .text{height:26px;line-height:26px;color:#76838f;font-size:16px;margin-bottom:10px;color:#333;font-weight:700}
+.panel-addpic .text.else{margin-top:30px}
+.form-back{background-color:#f6f7f9;padding:15px 16px 0 15px}
+.form-back .panel-body{background-color:#fff}
+.form-back .panel-addpic{border-left:15px solid #f6f7f9;padding:10px 15px}
+.form-cur-wall{margin-top:10px}
+.form-cur-wall label{width:80px;display:inline-block;vertical-align:middle;float:left;text-align:right;line-height:40px}
+.form-cur-wall .layui-input-block{padding-left:90px;margin-left:0}
+.form-cur-wall .layui-input-block .layui-form-checkbox{margin-bottom:15px}
+.table-sort:first-child{display:inline-block;transform:rotate(90deg);-ms-transform:rotate(90deg);-moz-transform:rotate(90deg);-webkit-transform:rotate(90deg);-o-transform:rotate(90deg);margin-right:15px}
+.table-sort:last-child{display:inline-block;transform:rotate(-90deg);-ms-transform:rotate(-90deg);-moz-transform:rotate(-90deg);-webkit-transform:rotate(-90deg);-o-transform:rotate(-90deg)}
+
