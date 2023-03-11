@@ -15,7 +15,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
     {
         o.Cookie.Name = "ShenNius.Mvc.Admin";
-        o.LoginPath = new PathString("/sys/user/login");
+        o.LoginPath = new PathString("/sys/user/login123123123");
         o.LogoutPath = new PathString("/sys/user/Logout");
         o.Cookie.HttpOnly = true;
     });
