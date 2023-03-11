@@ -54,4 +54,8 @@
       <Folder Include="wwwroot\lib\microsoft\signalr" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="ZKWeb.System.Drawing" Version="4.0.1" />
+    </ItemGroup>
+
 </Project>
