@@ -4,6 +4,7 @@ using CNF.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using CNF.MVC.Models;
 using Google.Protobuf.WellKnownTypes;
+using Microsoft.AspNetCore.Authorization;
 using SqlSugar;
 
 namespace CNF.MVC.Controllers;
@@ -20,6 +21,7 @@ public class HomeController : Controller
     }
 
     [Route("/")]
+    [HttpGet, AllowAnonymous]
     public async Task<IActionResult> Index()
     {
         if (_currentUserContext.IsAuthenticated())

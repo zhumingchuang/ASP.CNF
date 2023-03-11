@@ -9,16 +9,17 @@ using Microsoft.Extensions.Caching.Distributed;
 
 namespace CNF.MVC.Areas.Sys.Controllers;
 
+[Area("sys")]
 public class UserController:Controller
 {
     private readonly IDistributedCache _cacheHelper;
     private readonly ICurrentUserContext _currentUserContext;
     private readonly IMapper _mapper;
 
-    public UserController(IDistributedCache cacheHelper,IMapper mapper,ICurrentUserContext currentUserContext)
+    public UserController(IDistributedCache cacheHelper,ICurrentUserContext currentUserContext)
     {
         _cacheHelper = cacheHelper;
-        _mapper = mapper;
+        // _mapper = mapper;
         _currentUserContext = currentUserContext;
     }
     

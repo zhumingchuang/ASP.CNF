@@ -1,5 +1,6 @@
 using CNF.API.Extension;
 using CNF.Common.Extension;
+using CNF.Infrastructure.Hubs;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, o =>
     {
         o.Cookie.Name = "ShenNius.Mvc.Admin";
-        o.LoginPath = new PathString("/sys/user/login123123123");
+        o.LoginPath = new PathString("/sys/user/login");
         o.LogoutPath = new PathString("/sys/user/Logout");
         o.Cookie.HttpOnly = true;
     });
@@ -59,8 +60,19 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+// 路由映射
+app.UseEndpoints(endpoints =>
+{
+    //这个扩展方法全局添加也可以代替Authorize,如果因重写了IAuthorizationFilter就可以不添加。
+    endpoints?.MapControllers().RequireAuthorization();
+    endpoints.MapControllerRoute(
+        name: "MyArea",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+    //全局路由配置
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=home}/{action=index}/{id?}");
+    endpoints.MapHub<UserLoginNotifiHub>("userLoginNotifiHub");
+});
 
 app.Run();
