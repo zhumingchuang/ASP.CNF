@@ -31,7 +31,7 @@ public class User
     public string Ip { get; set; }
     
     /// <summary>
-    /// 当前登录时间
+    /// 登录时间
     /// </summary>
     public DateTime? LastLoginTime { get; set; }
 

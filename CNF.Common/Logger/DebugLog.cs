@@ -1,59 +1,50 @@
 ﻿using CNF.Common.Core;
 using NLog;
+using LogLevel = Microsoft.Extensions.Logging.LogLevel;
 
 namespace CNF.Common.Logger;
 
-public class DebugLog
+public static class DebugLog
 {
-    readonly NLog.Logger _logger;
+    public static NLog.Logger DefaultLogger { get; } = LogManager.GetCurrentClassLogger();
+    public static NLog.Logger Database { get; } = LogManager.GetLogger("database");
 
-    private DebugLog(NLog.Logger logger)
+    /// <summary>
+    /// 日志
+    /// </summary>
+    public static void Log(string msg, NLog.LogLevel logLevel, Exception exception = null)
     {
-        _logger = logger;
-    }
-
-    public DebugLog(string name) : this(LogManager.GetLogger(name))
-    {
-    }
-    
-    private static DebugLog _database;
-    public static DebugLog Database
-    {
-        get
-        {
-            if (_database == null)
-            {
-                _database=new DebugLog(LogManager.GetLogger("database"));
-            }
-            return _database;
-        }
-    }
-
-    // static DebugLog()
-    // {
-    //     Default = new DebugLog(LogManager.GetCurrentClassLogger());
-    // }
-
-    public void HttpLog(string userName, string Logger, string msg, NLog.LogLevel logLevel, Exception exception = null)
-    {
-        // try
-        // {
-        // var accessor = new HttpContextAccessor();
-        // string ip = accessor.HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
-        //             accessor.HttpContext.Connection.RemoteIpAddress.ToString();
         LogEventInfo lei = new LogEventInfo();
-        lei.Properties["UserName"] = userName;
-        lei.Properties["Logger"] = Logger;
         lei.Level = logLevel;
         lei.Message = msg;
         lei.Exception = exception;
-        //TODO
-        // lei.Properties["Address"] = IpParseHelper.GetAddressByIP(ip);
-        _logger.Log(lei);
-        //}
-        // catch
-        // {
-        //     // ignored
-        // }
+        DefaultLogger.Log(lei);
+    }
+
+    /// <summary>
+    /// 数据库记录日志
+    /// </summary>
+    public static void DatabaseLog(string userName, string loggerType, string msg, NLog.LogLevel logLevel,
+        Exception exception = null)
+    {
+        try
+        {
+            var _accessor = new HttpContextAccessor();
+            string ip = _accessor.HttpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault() ??
+                        _accessor.HttpContext.Connection.RemoteIpAddress.ToString();
+            LogEventInfo lei = new LogEventInfo();
+            lei.Properties["UserName"] = userName;
+            lei.Properties["LoggerType"] = loggerType;
+            lei.Level = logLevel;
+            lei.Message = msg;
+            lei.Exception = exception;
+            lei.Properties["Address"] = IpParseHelper.GetAddressByIP(ip);
+            Database.Log(lei);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
     }
 }
