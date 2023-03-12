@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
             option.InitKeyType = InitKeyType.Attribute; //从特性读取主键自增信息
         });
         services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
-
+        services.AddAutoMapper(typeof(AutomapperProfile));
         //jwt
         services.AddAuthorizationSetup(configuration);
         
