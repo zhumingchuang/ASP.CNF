@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using System.IdentityModel.Tokens.Jwt;
+using CNF.Common.Extension;
 using CNF.Common.Logger;
 using CNF.Domain.ValueObjects.Enums.Sys;
 using Microsoft.OpenApi.Extensions;
@@ -31,8 +32,10 @@ public class UserController : Controller
     private readonly IMapper _mapper;
     private readonly IBaseRepository<User> _userRepository;
 
-    public UserController(IDistributedCache cacheHelper, IMapper mapper, ICurrentUserContext currentUserContext)
+    public UserController(IBaseRepository<User> userRepository, IDistributedCache cacheHelper, IMapper mapper,
+        ICurrentUserContext currentUserContext)
     {
+        _userRepository = userRepository;
         _cacheHelper = cacheHelper;
         _mapper = mapper;
         _currentUserContext = currentUserContext;
@@ -78,8 +81,8 @@ public class UserController : Controller
                 d.UserName.Equals(loginInput.UserName) && d.Password.Equals(loginInput.Password));
             if (loginModel?.Id == 0)
             {
-                DebugLog.DatabaseLog(loginModel?.UserName, LoggerEnum.Login.GetDisplayName(),
-                    $"{loginModel?.UserName}登陆失败，用户名或密码错误！",NLog.LogLevel.Info);
+                DebugLog.DatabaseLog(loginModel?.UserName, LoggerEnum.Login.GetEnumDescription(),
+                    $"{loginModel?.UserName}登陆失败，用户名或密码错误！", NLog.LogLevel.Info);
                 return new ApiResult<LoginOutput>("用户名或密码错误", 500);
             }
 
@@ -120,13 +123,14 @@ public class UserController : Controller
                     AllowRefresh = false
                 });
             _cacheHelper.Remove($"{SysCacheKey.EncryLoginKey}:{loginInput.NumberGuid}");
-            DebugLog.DatabaseLog(loginInput.UserName,LoggerEnum.Login.GetDisplayName(),$"登陆成功",NLog.LogLevel.Info);
+            DebugLog.DatabaseLog(loginInput.UserName, LoggerEnum.Login.GetDisplayName(), $"登陆成功", NLog.LogLevel.Info);
             return new ApiResult<LoginOutput>(result);
         }
         catch (Exception exception)
         {
             ApiResult<LoginOutput> result = new ApiResult<LoginOutput>(msg: $"登陆失败！{exception.Message}");
-            DebugLog.DatabaseLog(loginInput.UserName,LoggerEnum.Login.GetDisplayName(),$"登陆失败:{exception.Message}",NLog.LogLevel.Error,exception);
+            DebugLog.DatabaseLog(loginInput.UserName, LoggerEnum.Login.GetDisplayName(), $"登陆失败:{exception.Message}",
+                NLog.LogLevel.Error, exception);
             return result;
         }
     }
